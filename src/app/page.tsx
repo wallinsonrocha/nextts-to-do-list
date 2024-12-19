@@ -14,13 +14,26 @@ export default function Home() {
       </section>
 
       {/* To do List */}
-      <section className="w-full h-screen bg-blue-950 p-4" id="to-do-list">
+      <section className="w-full h-screen bg-blue-950 p-4 flex gap-9" id="to-do-list">
 
         {/* To do */}
-        <div className="bg-slate-300 rounded-2xl w-80 p-4 grid gap-4">
+        <div className="bg-slate-300 rounded-2xl w-80 p-4 grid gap-4 h-fit">
           <div className="flex gap-2 items-center w-fit">
-            <Image src="/icons/toDoIcon.svg" width={16} height={16} alt="Icone para To Do" />
-            <p>Name Tag</p>
+            <Image src="/icons/to-do-icon.svg" width={16} height={16} alt="Icone para To Do" />
+            <p className="font-bold">Name Tag</p>
+          </div>
+
+          <div className="grid gap-4">
+            <Task />
+            <Task />
+          </div>
+        </div>
+
+        {/* Done */}
+        <div className="bg-slate-300 rounded-2xl w-80 p-4 grid gap-4 h-fit">
+          <div className="flex gap-2 items-center w-fit">
+            <Image src="/icons/done-icon.svg" width={24} height={24} alt="Icone para To Do" />
+            <p className="font-bold">Name Tag</p>
           </div>
 
           <div className="grid gap-4">
