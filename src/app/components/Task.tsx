@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import PriorityIcon from "../icon/PriorityIcon";
 import { useStore } from "../store";
@@ -16,11 +17,8 @@ export default function Task({ id, description, priority, status }: TaskProps) {
     const [updatedPriority, setUpdatedPriority] = useState(priority);
 
     const updateTask = useStore((state) => state.updateTask);
-    const name = useStore((state) => state.tasks)
-
-    useEffect(() => {
-        console.log(name)
-    }, [])
+    const updateStatusTask = useStore((state) => state.updateStatusTask);
+    const deleteTask = useStore((state) => state.removeTask);
 
     const handleEditToggle = () => {
         if (isEditing) {
@@ -34,8 +32,19 @@ export default function Task({ id, description, priority, status }: TaskProps) {
         setIsEditing(!isEditing);
     };
 
-    const wIcon: number = 24
-    const hIcon: number = 24
+    const handleDeleteToggle = () => {
+        if (isEditing) {
+            deleteTask(id);
+        }
+        setIsEditing(!isEditing);
+    };
+
+    const handleStatusChange = (newStatus: string) => {
+        updateStatusTask(id, newStatus); // Atualiza o status da task
+    };
+
+    const wIcon: number = 24;
+    const hIcon: number = 24;
 
     // Função para criar ícones de prioridade
     const renderPriorityIcons = () => {
@@ -47,7 +56,7 @@ export default function Task({ id, description, priority, status }: TaskProps) {
                         <PriorityIcon key={`priority-2-${id}`} />
                         <PriorityIcon key={`priority-3-${id}`} />
                     </>
-                )
+                );
 
             case 1:
                 return (
@@ -56,7 +65,7 @@ export default function Task({ id, description, priority, status }: TaskProps) {
                         <PriorityIcon key={`priority-2-${id}`} />
                         <PriorityIcon key={`priority-3-${id}`} />
                     </>
-                )
+                );
 
             case 2:
                 return (
@@ -65,7 +74,7 @@ export default function Task({ id, description, priority, status }: TaskProps) {
                         <PriorityIcon key={`priority-2-${id}`} propColor="#ECB800" />
                         <PriorityIcon key={`priority-3-${id}`} />
                     </>
-                )
+                );
 
             case 3:
                 return (
@@ -74,20 +83,23 @@ export default function Task({ id, description, priority, status }: TaskProps) {
                         <PriorityIcon key={`priority-2-${id}`} propColor="#E42C5F" />
                         <PriorityIcon key={`priority-3-${id}`} propColor="#E42C5F" />
                     </>
-                )
+                );
         }
     };
 
-
     return (
         <div className="w-auto bg-slate-50 rounded-md p-6 grid gap-2 shadow-sm">
-            {/* Botão para alternar entre modo de edição */}
-            <button
-                onClick={handleEditToggle}
-                className="place-self-end -mt-4 -mr-2"
-            >
-                {isEditing ? '' : <Image src="/icons/edit-icon.svg" height={hIcon} width={wIcon} alt="Editar" />}
-            </button>
+            <div className="place-self-end -mt-4 -mr-2">
+                {!isEditing ?
+                    (<button onClick={handleEditToggle}>
+                        <Image src="/icons/edit-icon.svg" height={hIcon} width={wIcon} alt="Editar" />
+                    </button>) :
+                    (<button onClick={handleDeleteToggle}>
+                        <Image src="/icons/delete-icon.svg" height={hIcon} width={wIcon} alt="Excluir" />
+                    </button>)
+                }
+            </div>
+            
             {/* Form de edição */}
             {isEditing ? (
                 <div className="grid gap-2">
@@ -118,6 +130,7 @@ export default function Task({ id, description, priority, status }: TaskProps) {
                     </div>
                 </div>
             )}
+
             {/* Botão para salvar */}
             {isEditing ?
                 <button
@@ -128,6 +141,28 @@ export default function Task({ id, description, priority, status }: TaskProps) {
                 </button>
                 :
                 null}
+
+            {/* Botões para alterar o status */}
+            <div className="mt-4">
+                <button
+                    onClick={() => handleStatusChange('to-do')}
+                    className="px-4 py-2 rounded bg-gray-500 text-white"
+                >
+                    To Do
+                </button>
+                <button
+                    onClick={() => handleStatusChange('in-progress')}
+                    className="px-4 py-2 rounded bg-blue-500 text-white ml-2"
+                >
+                    In Progress
+                </button>
+                <button
+                    onClick={() => handleStatusChange('done')}
+                    className="px-4 py-2 rounded bg-green-500 text-white ml-2"
+                >
+                    Done
+                </button>
+            </div>
         </div>
     );
 }

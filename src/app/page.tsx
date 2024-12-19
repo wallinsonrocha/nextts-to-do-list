@@ -1,8 +1,10 @@
 "use client"
+import dynamic from 'next/dynamic'
 import Image from "next/image";
-import Task from "./components/Task";
 import { useStore } from "./store";
 import { v4 } from 'uuid';
+
+const Task = dynamic(() => import('./components/Task'), { ssr: false })
 
 export default function Home() {
   const { tasks, addTask, clearTasks } = useStore();
@@ -75,6 +77,21 @@ export default function Home() {
               Adicionar Tarefa
             </button>
           </form>
+        </div>
+
+        {/* In progress */}
+        <div className="bg-slate-300 rounded-2xl w-80 p-4 grid gap-4 h-fit">
+          <div className="flex gap-2 items-center w-fit">
+            <Image src="/icons/done-icon.svg" width={24} height={24} alt="Ícone de Done" />
+            <p className="font-bold">In Progress</p>
+          </div>
+
+          {/* Exibição dinâmica de tarefas com status "done" */}
+          <div className="grid gap-4">
+            {tasks.filter((task) => task.status === "in-progress").map((task) => (
+              <Task key={task.id} {...task} />
+            ))}
+          </div>
         </div>
 
         {/* Done */}

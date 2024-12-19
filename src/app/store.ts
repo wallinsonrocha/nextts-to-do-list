@@ -13,6 +13,7 @@ interface ToDoStore {
     addTask: (task: Task) => void;
     removeTask: (id: string) => void;
     updateTask: (id: string, updatedTask: Task) => void;
+    updateStatusTask: (id: string, status: string) => void;
     clearTasks: () => void;
 }
 
@@ -38,6 +39,11 @@ export const useStore = create(
             updateTask: (id, updatedTask) => set((state) => ({
                 tasks: state.tasks.map((task) =>
                     task.id === id ? { ...task, ...updatedTask } : task
+                ),
+            })),
+            updateStatusTask: (id, status) => set((state) => ({
+                tasks: state.tasks.map((task) =>
+                    task.id === id ? { ...task, status } : task
                 ),
             })),
             clearTasks: () => set(() => ({
