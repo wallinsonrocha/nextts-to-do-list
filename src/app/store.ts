@@ -1,43 +1,51 @@
-import create from 'zustand';
-import Task from './components/Task';
+import { create } from 'zustand';
+import { persist, createJSONStorage } from "zustand/middleware";
 
 type Task = {
     id: string;
-    day: string;
     priority: number;
     description: string;
+    status: string;
 }
 
 interface ToDoStore {
-    task: Task[];
+    tasks: Task[];
     addTask: (task: Task) => void;
     removeTask: (id: string) => void;
     updateTask: (id: string, updatedTask: Task) => void;
+    clearTasks: () => void;
 }
 
 const initialState: Task[] = [
     {
         id: '1',
-        day: 'Seg',
         priority: 0,
         description: 'Task inicial para exemplo',
+        status: 'to-do'
     },
 ]
 
-export const useStore = create<ToDoStore>((set) => ({
-    task: initialState,
-    // Função para adicionar tarefa
-    addTask: (task) => set((state) => ({
-        tasks: [...state.tasks, task]
-    })),
-    // Função para remover tarefa
-    removeTask: (id) => set((state) => ({
-        tasks: state.tasks.filter((task) => task.id !== id)
-    })),
-    // Função para atualizar tarefa
-    updateTask: (id, updatedTask) => set((state) => ({
-        tasks: state.tasks.map((task) =>
-            task.id === id ? { ...task, ...updatedTask } : task // Atualiza a tarefa
-        )
-    }))
-}));
+export const useStore = create(
+    persist<ToDoStore>(
+        (set) => ({
+            tasks: [],  // inicializa com array vazio
+            addTask: (task) => set((state) => ({
+                tasks: [...state.tasks, task],
+            })),
+            removeTask: (id) => set((state) => ({
+                tasks: state.tasks.filter((task) => task.id !== id),
+            })),
+            updateTask: (id, updatedTask) => set((state) => ({
+                tasks: state.tasks.map((task) =>
+                    task.id === id ? { ...task, ...updatedTask } : task
+                ),
+            })),
+            clearTasks: () => set(() => ({
+                tasks: [],
+            })),
+        }),
+        {
+            name: "todo-storage",
+            storage: createJSONStorage(() => localStorage),
+        }
+    ));
