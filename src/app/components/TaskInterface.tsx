@@ -37,7 +37,7 @@ export default function TaskInterface() {
   };
 
   return (
-    <main className="bg-blue-950 p-8 grid place-items-center">    
+    <main className="bg-blue-950 p-8 grid place-items-center text-black">    
       <button className="text-white p-2 max-w-[200px] w-full bg-red-600 rounded-2xl" onClick={handleClear}>Limpar tarefas</button>
 
       {/* To do List */}
