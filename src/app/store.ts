@@ -17,15 +17,6 @@ interface ToDoStore {
     clearTasks: () => void;
 }
 
-const initialState: Task[] = [
-    {
-        id: '1',
-        priority: 0,
-        description: 'Task inicial para exemplo',
-        status: 'to-do'
-    },
-]
-
 export const useStore = create(
     persist<ToDoStore>(
         (set) => ({

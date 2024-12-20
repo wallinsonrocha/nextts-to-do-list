@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PriorityIcon from "../icon/PriorityIcon";
 import { useStore } from "../store";
 import Image from "next/image";
@@ -11,7 +11,7 @@ interface TaskProps {
     status: string;
 }
 
-export default function Task({ id, description, priority, status }: TaskProps) {
+export default function Task({ id, description, priority }: TaskProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [updatedDescription, setUpdatedDescription] = useState(description);
     const [updatedPriority, setUpdatedPriority] = useState(priority);
@@ -137,30 +137,30 @@ export default function Task({ id, description, priority, status }: TaskProps) {
                     onClick={handleEditToggle}
                     className="mt-4 px-4 py-2 rounded text-white bg-green-500"
                 >
-                    "Salvar"
+                    Salvar
                 </button>
                 :
                 null}
 
             {/* Botões para alterar o status */}
-            <div className="mt-4">
+            <div className="mt-4 flex flex-col gap-2 items-start justify-start">
                 <button
                     onClick={() => handleStatusChange('to-do')}
-                    className="px-4 py-2 rounded bg-gray-500 text-white"
+                    className="px-4 py-2 rounded-3xl bg-gray-500 text-white"
                 >
-                    To Do
+                    A fazer
                 </button>
                 <button
                     onClick={() => handleStatusChange('in-progress')}
-                    className="px-4 py-2 rounded bg-blue-500 text-white ml-2"
+                    className="px-4 py-2 rounded-3xl bg-blue-500 text-white"
                 >
-                    In Progress
+                    Em progresso
                 </button>
                 <button
                     onClick={() => handleStatusChange('done')}
-                    className="px-4 py-2 rounded bg-green-500 text-white ml-2"
+                    className="px-4 py-2 rounded-3xl bg-green-500 text-white"
                 >
-                    Done
+                    Feito
                 </button>
             </div>
         </div>
