@@ -2,6 +2,8 @@
 
 Este é um projeto de aplicação de lista de tarefas desenvolvido com **Next.js**, **TypeScript** e **Zustand** para gerenciamento de estados. A aplicação permite criar, editar, atualizar status e remover tarefas, organizando-as em categorias como "To Do", "In Progress" e "Done".
 
+**Link do projeto**: https://nextts-to-do-list.vercel.app/
+
 ## ✨ Funcionalidades
 
 - **Adicionar Tarefas:** Crie tarefas com descrição e prioridade.

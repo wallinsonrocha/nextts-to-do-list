@@ -38,10 +38,10 @@ export default function TaskInterface() {
 
   return (
     <main className="bg-blue-950 p-8 grid place-items-center">    
-      <button className="text-white p-2 max-w-[200px] w-full bg-red-600 rounded-2xl md:bg-white" onClick={handleClear}>Limpar tarefas</button>
+      <button className="text-white p-2 max-w-[200px] w-full bg-red-600 rounded-2xl" onClick={handleClear}>Limpar tarefas</button>
 
       {/* To do List */}
-      <section className="w-full min-h-screen h-ful p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9 justify-center" id="to-do-list">
+      <section className="w-full min-h-screen h-ful p-4 flex-wrap flex gap-9 justify-center" id="to-do-list">
         {/* To do */}
         <div className="bg-slate-300 rounded-2xl w-80 p-4 grid gap-4 h-fit">
           <div className="flex gap-2 items-center w-fit">
