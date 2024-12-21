@@ -65,7 +65,6 @@ Este é um projeto de aplicação de lista de tarefas desenvolvido com **Next.js
 
 ## 📝 Contato
 
-- **Desenvolvedor:** [Wallinson Rocha](https://www.wallinson.com)
+- **Desenvolvedor:** [Wallinson Rocha](https://dev.wallinson.com)
 - **E-mail:** wallinsonrochadev@gmail.com
 
----
